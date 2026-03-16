@@ -55,7 +55,6 @@ public class PlayerController : NetworkBehaviour
             }
             else
             {
-                // Если Instance нет (например, сцена еще грузится), пробуем найти "в лоб"
                 var sm = FindFirstObjectByType<SpawnManager>();
                 if (sm != null)
                 {
@@ -109,7 +108,6 @@ public class PlayerController : NetworkBehaviour
                                    && moveInput.magnitude > 0.1f
                                    && isGrounded;
 
-        // Один вызов — SprintEffect сам проверяет дубли
         sprintEffect?.SetSprinting(isActivelySprinting);
     }
 

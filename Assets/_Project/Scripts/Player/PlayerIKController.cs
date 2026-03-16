@@ -40,18 +40,18 @@ public class PlayerIKController : NetworkBehaviour
     {
         if (item == null)
         {
-            // Сбрасываем все веса в 0, если ничего не несем
+            // РЎР±СЂР°СЃС‹РІР°РµРј РІСЃРµ РІРµСЃР° РІ 0, РµСЃР»Рё РЅРёС‡РµРіРѕ РЅРµ РЅРµСЃРµРј
             bipedIK.solvers.rightHand.IKPositionWeight = 0;
             bipedIK.solvers.leftHand.IKPositionWeight = 0;
             return;
         }
 
-        // 1. Правая рука всегда тянется к предмету
+        // 1. РџСЂР°РІР°СЏ СЂСѓРєР° РІСЃРµРіРґР° С‚СЏРЅРµС‚СЃСЏ Рє РїСЂРµРґРјРµС‚Сѓ
         bipedIK.solvers.rightHand.target = item.rightHandGrip;
         bipedIK.solvers.rightHand.IKPositionWeight = 1f;
         bipedIK.solvers.rightHand.IKRotationWeight = 1f;
 
-        // 2. Левая рука - только если предмет большой
+        // 2. Р›РµРІР°СЏ СЂСѓРєР° - С‚РѕР»СЊРєРѕ РµСЃР»Рё РїСЂРµРґРјРµС‚ Р±РѕР»СЊС€РѕР№
         if (item.holdType == ItemHoldType.LargeTwoHanded)
         {
             bipedIK.solvers.leftHand.target = item.leftHandGrip;
@@ -60,7 +60,7 @@ public class PlayerIKController : NetworkBehaviour
         }
         else
         {
-            bipedIK.solvers.leftHand.IKPositionWeight = 0f; // Левая рука свободна (анимация бега)
+            bipedIK.solvers.leftHand.IKPositionWeight = 0f; // Р›РµРІР°СЏ СЂСѓРєР° СЃРІРѕР±РѕРґРЅР° (Р°РЅРёРјР°С†РёСЏ Р±РµРіР°)
         }
     }
 }

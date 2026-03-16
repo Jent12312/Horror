@@ -3,8 +3,8 @@ using UnityEngine;
 public class ItemAntiClipping : MonoBehaviour
 {
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private float pushForwardAmount = 0.4f; // Насколько отодвигать
-    [SerializeField] private float downAngleThreshold = 30f; // Угол, после которого начинается сдвиг
+    [SerializeField] private float pushForwardAmount = 0.4f; // РќР°СЃРєРѕР»СЊРєРѕ РѕС‚РѕРґРІРёРіР°С‚СЊ
+    [SerializeField] private float downAngleThreshold = 30f; // РЈРіРѕР», РїРѕСЃР»Рµ РєРѕС‚РѕСЂРѕРіРѕ РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃРґРІРёРі
 
     private Vector3 initialLocalPos;
 
@@ -12,20 +12,20 @@ public class ItemAntiClipping : MonoBehaviour
 
     void Update()
     {
-        // Получаем наклон камеры (0 - прямо, 90 - в пол)
+        // РџРѕР»СѓС‡Р°РµРј РЅР°РєР»РѕРЅ РєР°РјРµСЂС‹ (0 - РїСЂСЏРјРѕ, 90 - РІ РїРѕР»)
         float angle = cameraTransform.localEulerAngles.x;
-        if (angle > 180) angle -= 360; // Корректировка углов Unity
+        if (angle > 180) angle -= 360; // РљРѕСЂСЂРµРєС‚РёСЂРѕРІРєР° СѓРіР»РѕРІ Unity
 
         float offsetZ = 0;
 
         if (angle > downAngleThreshold)
         {
-            // Рассчитываем коэффициент сдвига (чем ниже смотрим, тем больше сдвиг)
+            // Р Р°СЃСЃС‡РёС‚С‹РІР°РµРј РєРѕСЌС„С„РёС†РёРµРЅС‚ СЃРґРІРёРіР° (С‡РµРј РЅРёР¶Рµ СЃРјРѕС‚СЂРёРј, С‚РµРј Р±РѕР»СЊС€Рµ СЃРґРІРёРі)
             float normalizeAngle = Mathf.InverseLerp(downAngleThreshold, 90, angle);
             offsetZ = normalizeAngle * pushForwardAmount;
         }
 
-        // Плавно меняем позицию HoldPoint
+        // РџР»Р°РІРЅРѕ РјРµРЅСЏРµРј РїРѕР·РёС†РёСЋ HoldPoint
         Vector3 targetPos = initialLocalPos + new Vector3(0, 0, offsetZ);
         transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, Time.deltaTime * 10f);
     }

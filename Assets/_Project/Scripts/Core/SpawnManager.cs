@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
 
     private void Awake()
     {
-        // Простая защита от дубликатов
+        // РџСЂРѕСЃС‚Р°СЏ Р·Р°С‰РёС‚Р° РѕС‚ РґСѓР±Р»РёРєР°С‚РѕРІ
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);

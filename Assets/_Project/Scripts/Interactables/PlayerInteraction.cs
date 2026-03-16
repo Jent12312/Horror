@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerInteraction : NetworkBehaviour
 {
     [SerializeField] private InputReader inputReader;
-    [SerializeField] private PlayerEquipment equipment; // Ссылка на новый скрипт
+    [SerializeField] private PlayerEquipment equipment; // РЎСЃС‹Р»РєР° РЅР° РЅРѕРІС‹Р№ СЃРєСЂРёРїС‚
     [SerializeField] private float interactDistance = 2.5f;
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private Transform cameraTransform;
@@ -16,8 +16,8 @@ public class PlayerInteraction : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) return;
-        inputReader.ToggleLightEvent += () => equipment.ToggleStone(); // Камень
-        inputReader.InteractEvent += HandleInteract; // ЛКМ
+        inputReader.ToggleLightEvent += () => equipment.ToggleStone(); // РљР°РјРµРЅСЊ
+        inputReader.InteractEvent += HandleInteract; // Р›РљРњ
     }
 
     public override void OnNetworkDespawn()
@@ -31,12 +31,12 @@ public class PlayerInteraction : NetworkBehaviour
 
     private void HandleInteract()
     {
-        // Если уже что-то несем - бросаем
+        // Р•СЃР»Рё СѓР¶Рµ С‡С‚Рѕ-С‚Рѕ РЅРµСЃРµРј - Р±СЂРѕСЃР°РµРј
         if (equipment.CurrentItem != null)
         {
             DropItem();
         }
-        // Иначе пытаемся поднять
+        // РРЅР°С‡Рµ РїС‹С‚Р°РµРјСЃСЏ РїРѕРґРЅСЏС‚СЊ
         else
         {
             TryPickUp();

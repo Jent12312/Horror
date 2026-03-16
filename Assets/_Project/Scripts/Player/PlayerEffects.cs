@@ -31,7 +31,7 @@ public class PlayerEffects : MonoBehaviour
             stoneVisualRoot.DOScale(Vector3.one * 10, 0.4f)
                 .SetEase(Ease.OutBack);
 
-            // 3. Можно добавить звук (если есть AudioManager)
+            // 3. РњРѕР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ Р·РІСѓРє (РµСЃР»Рё РµСЃС‚СЊ AudioManager)
             // AudioManager.PlaySound("StoneEquip", transform.position);
         }
         else

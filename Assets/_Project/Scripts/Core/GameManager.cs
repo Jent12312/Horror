@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class GameManager : NetworkBehaviour
 {
-    [SerializeField] private GameObject playerPrefab; // Перетащи сюда префаб Игрока в инспекторе!
+    [SerializeField] private GameObject playerPrefab; // РџРµСЂРµС‚Р°С‰Рё СЃСЋРґР° РїСЂРµС„Р°Р± РРіСЂРѕРєР° РІ РёРЅСЃРїРµРєС‚РѕСЂРµ!
 
     public override void OnNetworkSpawn()
     {
         if (IsServer)
         {
-            // 1. Сразу спавним персонажа для самого Хоста
+            // 1. РЎСЂР°Р·Сѓ СЃРїР°РІРЅРёРј РїРµСЂСЃРѕРЅР°Р¶Р° РґР»СЏ СЃР°РјРѕРіРѕ РҐРѕСЃС‚Р°
             SpawnPlayer(NetworkManager.ServerClientId);
 
-            // 2. Подписываемся на подключение остальных игроков
+            // 2. РџРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РЅР° РїРѕРґРєР»СЋС‡РµРЅРёРµ РѕСЃС‚Р°Р»СЊРЅС‹С… РёРіСЂРѕРєРѕРІ
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
         }
     }
@@ -27,13 +27,13 @@ public class GameManager : NetworkBehaviour
 
     private void OnClientConnected(ulong clientId)
     {
-        // Когда новый клиент полностью подключился - даем ему персонажа
+        // РљРѕРіРґР° РЅРѕРІС‹Р№ РєР»РёРµРЅС‚ РїРѕР»РЅРѕСЃС‚СЊСЋ РїРѕРґРєР»СЋС‡РёР»СЃСЏ - РґР°РµРј РµРјСѓ РїРµСЂСЃРѕРЅР°Р¶Р°
         SpawnPlayer(clientId);
     }
 
     private void SpawnPlayer(ulong clientId)
     {
-        Transform spawnPoint = transform; // По умолчанию спавним там же, где стоит GameManager
+        Transform spawnPoint = transform; // РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЃРїР°РІРЅРёРј С‚Р°Рј Р¶Рµ, РіРґРµ СЃС‚РѕРёС‚ GameManager
 
         if (SpawnManager.Instance != null)
         {
@@ -41,13 +41,13 @@ public class GameManager : NetworkBehaviour
         }
         else
         {
-            Debug.LogWarning("SpawnManager не найден! Игрок появится в центре GameManager'а.");
+            Debug.LogWarning("SpawnManager РЅРµ РЅР°Р№РґРµРЅ! РРіСЂРѕРє РїРѕСЏРІРёС‚СЃСЏ РІ С†РµРЅС‚СЂРµ GameManager'Р°.");
         }
 
-        // Инстанцируем префаб
+        // РРЅСЃС‚Р°РЅС†РёСЂСѓРµРј РїСЂРµС„Р°Р±
         GameObject playerInstance = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
 
-        // ВАЖНО: Делаем этот объект "телом" подключившегося клиента
+        // Р’РђР–РќРћ: Р”РµР»Р°РµРј СЌС‚РѕС‚ РѕР±СЉРµРєС‚ "С‚РµР»РѕРј" РїРѕРґРєР»СЋС‡РёРІС€РµРіРѕСЃСЏ РєР»РёРµРЅС‚Р°
         playerInstance.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
     }
 }

@@ -26,14 +26,14 @@ public class LinearStone : NetworkBehaviour
         if (transform.parent.TryGetComponent<PlayerEquipment>(out var equipment))
         {
             equipment.OnStoneToggled += HandleEquipmentToggle;
-            UpdateVisuals(!equipment.isStoneActive.Value); // Инициализация
+            UpdateVisuals(!equipment.isStoneActive.Value); // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
         }
         UpdateVisuals(isOnCooldown.Value);
     }
 
     private void HandleEquipmentToggle(bool isActive)
     {
-        // Если игрок выключил камень — сбрасываем таймер
+        // Р•СЃР»Рё РёРіСЂРѕРє РІС‹РєР»СЋС‡РёР» РєР°РјРµРЅСЊ вЂ” СЃР±СЂР°СЃС‹РІР°РµРј С‚Р°Р№РјРµСЂ
         if (!isActive) timer = 0f;
     }
 
@@ -48,7 +48,7 @@ public class LinearStone : NetworkBehaviour
 
     private void Update()
     {
-        if (!IsServer) return; // Логика таймеров только на сервере
+        if (!IsServer) return; // Р›РѕРіРёРєР° С‚Р°Р№РјРµСЂРѕРІ С‚РѕР»СЊРєРѕ РЅР° СЃРµСЂРІРµСЂРµ
 
         if (isOnCooldown.Value)
         {
@@ -58,13 +58,13 @@ public class LinearStone : NetworkBehaviour
                 isOnCooldown.Value = false;
             }
         }
-        else if (gameObject.activeInHierarchy) // Если игрок включил свет
+        else if (gameObject.activeInHierarchy) // Р•СЃР»Рё РёРіСЂРѕРє РІРєР»СЋС‡РёР» СЃРІРµС‚
         {
             timer += Time.deltaTime;
             if (timer >= activeDuration)
             {
                 isOnCooldown.Value = true;
-                timer = cooldownDuration; // Запускаем кулдаун
+                timer = cooldownDuration; // Р—Р°РїСѓСЃРєР°РµРј РєСѓР»РґР°СѓРЅ
 
             }
         }
@@ -77,7 +77,7 @@ public class LinearStone : NetworkBehaviour
 
     private void UpdateVisuals(bool inCooldown)
     {
-        // Если в кулдауне, камень тускнеет и краснеет/сереет
+        // Р•СЃР»Рё РІ РєСѓР»РґР°СѓРЅРµ, РєР°РјРµРЅСЊ С‚СѓСЃРєРЅРµРµС‚ Рё РєСЂР°СЃРЅРµРµС‚/СЃРµСЂРµРµС‚
         if (inCooldown)
         {
             pointLight.intensity = 0.1f;
